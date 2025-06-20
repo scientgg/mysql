@@ -41,15 +41,15 @@ CMySQLPlugin::~CMySQLPlugin()
 int CMySQLPlugin::OnInit()
 {
     /* MySQL-documented */
-    Plugin_ScrAddFunction("mysql_real_connect", Scr_MySQL_Real_Connect_f);
-    Plugin_ScrAddFunction("mysql_close", Scr_MySQL_Close_f);
-    Plugin_ScrAddFunction("mysql_affected_rows", Scr_MySQL_Affected_Rows_f);
-    Plugin_ScrAddFunction("mysql_query", Scr_MySQL_Query_f);
-    Plugin_ScrAddFunction("mysql_num_rows", Scr_MySQL_Num_Rows_f);
-    Plugin_ScrAddFunction("mysql_num_fields", Scr_MySQL_Num_Fields_f);
-    Plugin_ScrAddFunction("mysql_fetch_row", Scr_MySQL_Fetch_Row_f);
+    Plugin_ScrAddFunction((char*)"mysql_real_connect", Scr_MySQL_Real_Connect_f);
+    Plugin_ScrAddFunction((char*)"mysql_close", Scr_MySQL_Close_f);
+    Plugin_ScrAddFunction((char*)"mysql_affected_rows", Scr_MySQL_Affected_Rows_f);
+    Plugin_ScrAddFunction((char*)"mysql_query", Scr_MySQL_Query_f);
+    Plugin_ScrAddFunction((char*)"mysql_num_rows", Scr_MySQL_Num_Rows_f);
+    Plugin_ScrAddFunction((char*)"mysql_num_fields", Scr_MySQL_Num_Fields_f);
+    Plugin_ScrAddFunction((char*)"mysql_fetch_row", Scr_MySQL_Fetch_Row_f);
     /* MySQL-custom */
-    Plugin_ScrAddFunction("mysql_fetch_rows", Scr_MySQL_Fetch_Rows_f);
+    Plugin_ScrAddFunction((char*)"mysql_fetch_rows", Scr_MySQL_Fetch_Rows_f);
 
     return 0;
 }
@@ -381,7 +381,7 @@ void CMySQLPlugin::OnScript_Fetch_Row()
             else
                 Plugin_Scr_AddString(row[i]);
                 
-            Plugin_Scr_AddArrayKey(Plugin_Scr_AllocString(field->name));
+            Plugin_Scr_AddArrayKeys(Plugin_Scr_AllocString(field->name));
         }
     }
 }
@@ -437,7 +437,7 @@ void CMySQLPlugin::OnScript_Fetch_Rows()
             else
                 Plugin_Scr_AddString(rows[i]);
             
-            Plugin_Scr_AddArrayKey(keyArrayIndex[i]);
+            Plugin_Scr_AddArrayKeys(keyArrayIndex[i]);
         }
         Plugin_Scr_AddArray();
     }
